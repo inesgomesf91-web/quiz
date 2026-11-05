@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Que família de fim de semana são vocês? · Miúdos em Leiria</title>
+<meta name="description" content="Dois minutos e, no fim, digo-te que tipo de família de fim de semana são e o que vos dá mais jeito em Leiria.">
+<meta property="og:title" content="Que família de fim de semana são vocês?">
+<meta property="og:description" content="Dois minutos. Feito por uma mãe de Leiria.">
+<link rel="icon" href="logo-marca.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme: #FBF6EF;
+    --terracota: #C75643;
+    --moss: #5C7A52;
+    --mostarda: #E0A458;
+    --tinta: #1F2933;
+    --pedra: #8A8076;
+    --linha: #E6DCCD;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--creme);
+    color: var(--tinta);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.55;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 16px 48px; }
+
+  header.topo {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0 12px;
+  }
+  header.topo img { width: 44px; height: 44px; display: block; }
+  header.topo span {
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--terracota);
+  }
+
+  .barra { height: 8px; background: var(--linha); margin-bottom: 28px; }
+  .barra > i { display: block; height: 100%; width: 0; background: var(--terracota); transition: width .3s ease; }
+
+  h1, h2 {
+    font-family: 'Poppins', sans-serif; font-weight: 800; line-height: 1.12;
+    letter-spacing: -.01em;
+  }
+  h1 { font-size: 36px; margin-bottom: 18px; }
+  h2 { font-size: 26px; margin-bottom: 10px; }
+  .etiqueta {
+    display: inline-block; background: var(--mostarda); color: var(--tinta);
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12px;
+    letter-spacing: .14em; text-transform: uppercase; padding: 5px 10px; margin-bottom: 16px;
+  }
+  .ajuda { color: var(--pedra); font-size: 16px; margin-bottom: 20px; }
+  p + p { margin-top: 12px; }
+
+  .bloco-capa {
+    background: var(--terracota); color: var(--creme);
+    padding: 28px 22px; margin: 8px 0 24px;
+  }
+  .bloco-capa h1 { color: var(--creme); }
+  .bloco-capa p { font-size: 18px; }
+
+  .opcoes { display: grid; gap: 10px; margin-top: 8px; }
+  .opcao {
+    display: flex; align-items: center; gap: 12px; width: 100%;
+    background: #fff; border: 2px solid var(--linha); color: var(--tinta);
+    font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 16px; line-height: 1.3;
+    text-align: left; padding: 15px 16px; cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .opcao:hover { border-color: var(--pedra); }
+  .opcao:focus-visible { outline: 3px solid var(--mostarda); outline-offset: 2px; }
+  .opcao[aria-pressed="true"] { border-color: var(--terracota); background: #F6E4DE; }
+  .opcao .marca {
+    flex: 0 0 22px; height: 22px; border: 2px solid var(--pedra);
+    display: grid; place-items: center; font-size: 14px; color: #fff;
+  }
+  .opcao[aria-pressed="true"] .marca { background: var(--terracota); border-color: var(--terracota); }
+  .opcao[aria-pressed="true"] .marca::after { content: "✓"; }
+
+  .botao {
+    display: block; width: 100%; border: 0; cursor: pointer;
+    background: var(--tinta); color: var(--creme);
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 17px;
+    padding: 17px 20px; margin-top: 22px; text-align: center; text-decoration: none;
+  }
+  .botao:disabled { background: var(--pedra); opacity: .55; cursor: not-allowed; }
+  .botao.terracota { background: var(--terracota); }
+  .botao:focus-visible { outline: 3px solid var(--mostarda); outline-offset: 2px; }
+
+  .navegacao { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
+  .ligacao {
+    background: none; border: 0; cursor: pointer; color: var(--pedra);
+    font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 15px;
+    text-decoration: underline; text-underline-offset: 3px; padding: 6px 0;
+  }
+
+  textarea, input[type=text], input[type=email], input[type=tel] {
+    width: 100%; background: #fff; border: 2px solid var(--linha); color: var(--tinta);
+    font-family: 'Lora', Georgia, serif; font-size: 17px; padding: 14px; border-radius: 0;
+    -webkit-appearance: none; appearance: none;
+  }
+  textarea { min-height: 140px; resize: vertical; }
+  textarea:focus, input:focus { outline: none; border-color: var(--terracota); }
+  label.campo { display: block; margin-top: 16px; }
+  label.campo > span {
+    display: block; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px;
+    margin-bottom: 6px;
+  }
+  label.campo small { font-weight: 500; color: var(--pedra); }
+
+  .caixa { display: flex; gap: 12px; align-items: flex-start; margin-top: 16px; font-size: 16px; cursor: pointer; }
+  .caixa input { flex: 0 0 22px; width: 22px; height: 22px; margin-top: 2px; accent-color: var(--terracota); }
+  .erro { color: var(--terracota); font-family: 'Poppins', sans-serif; font-size: 14px; margin-top: 10px; min-height: 1em; }
+  .letra-pequena { color: var(--pedra); font-size: 14px; margin-top: 18px; }
+
+  /* resultado */
+  .resultado-capa { background: var(--moss); color: var(--creme); padding: 28px 22px; margin-bottom: 24px; }
+  .resultado-capa .etiqueta { margin-bottom: 12px; }
+  .resultado-capa h1 { color: var(--creme); margin-bottom: 14px; }
+  .resultado-capa p { font-style: italic; }
+  ol.dicas { list-style: none; counter-reset: d; margin: 6px 0 4px; }
+  ol.dicas li {
+    counter-increment: d; position: relative; padding: 16px 0 16px 52px;
+    border-top: 2px solid var(--linha);
+  }
+  ol.dicas li:last-child { border-bottom: 2px solid var(--linha); }
+  ol.dicas li::before {
+    content: counter(d); position: absolute; left: 0; top: 14px;
+    width: 36px; height: 36px; background: var(--terracota); color: var(--creme);
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 18px;
+    display: grid; place-items: center;
+  }
+  ol.dicas a { color: var(--terracota); }
+  .assinatura { font-style: italic; margin-top: 22px; }
+  .partilha { text-align: center; margin-top: 26px; font-size: 16px; }
+  .partilha a { color: var(--terracota); font-family: 'Poppins', sans-serif; font-weight: 500; }
+
+  .ecra { display: none; animation: entra .25s ease; }
+  .ecra.ativo { display: block; }
+  @keyframes entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .ecra { animation: none; } .barra > i { transition: none; } }
+  @media (max-width: 380px) { h1 { font-size: 30px; } h2 { font-size: 23px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topo">
+    <img src="logo-marca.png" alt="Miúdos em Leiria">
+    <span>Miúdos em Leiria</span>
+  </header>
+  <div class="barra" aria-hidden="true"><i id="progresso"></i></div>
+
+  <main id="app" aria-live="polite"></main>
+</div>
+
+<script>
+/* =========================================================
+   CONFIGURAÇÃO
+   Depois de publicar o Apps Script (automacao/Quiz.gs),
+   colar aqui o URL da app da Web (acaba em /exec).
+   ========================================================= */
+const URL_RESPOSTAS = 'https://script.google.com/macros/s/AKfycbzQ3N8_0fvlgiSfu03VRKuOlIM-HL0ZKelaUJ72Zw9xworZVlRFUlu2173veLNzFwtH/exec';
+const URL_AGENDA = 'https://miudosemleiria.notion.site/Agenda-3f4273f1f54f81609662cfe095e104b3';
+const URL_GUIA_PARQUES = 'https://docs.google.com/forms/d/e/1FAIpQLSfCUgjycntglpHbwXSVBpjeFNfnjSatlGqRjxnf2j6KXNBfLw/viewform';
+
+/* ---------------------------------------------------------
+   PERGUNTAS
+   Cada opção soma pontos a um ou mais tipos de família:
+   ultima (sábado de manhã), gratis (caça-grátis),
+   explora (exploradora), malabar (malabarista).
+   --------------------------------------------------------- */
+const PERGUNTAS = [
+  {
+    id: 'idades', multipla: true,
+    titulo: 'Quantos anos têm os teus filhos?',
+    ajuda: 'Podes escolher mais do que uma.',
+    opcoes: [
+      { v: '0-2', t: '0 a 2 anos' },
+      { v: '3-5', t: '3 a 5 anos' },
+      { v: '6-9', t: '6 a 9 anos' },
+      { v: '10+', t: '10 anos ou mais' }
+    ]
+  },
+  {
+    id: 'concelho',
+    titulo: 'Em que concelho moram?',
+    opcoes: [
+      { v: 'Leiria', t: 'Leiria' },
+      { v: 'Marinha Grande', t: 'Marinha Grande' },
+      { v: 'Batalha', t: 'Batalha' },
+      { v: 'Pombal', t: 'Pombal' },
+      { v: 'Porto de Mós', t: 'Porto de Mós' },
+      { v: 'Alcobaça', t: 'Alcobaça' },
+      { v: 'Ourém', t: 'Ourém' },
+      { v: 'Outro', t: 'Outro concelho' }
+    ]
+  },
+  {
+    id: 'decidir',
+    titulo: 'No último sábado com os miúdos, quando é que decidiram o que fazer?',
+    opcoes: [
+      { v: 'durante a semana', t: 'Durante a semana', p: { explora: 1, malabar: 1 } },
+      { v: 'sexta à noite', t: 'Na sexta à noite', p: { ultima: 1 } },
+      { v: 'sábado de manhã', t: 'No próprio sábado de manhã', p: { ultima: 2 } },
+      { v: 'foi acontecendo', t: 'Não decidimos, foi acontecendo', p: { ultima: 2 } }
+    ]
+  },
+  {
+    id: 'fizeram',
+    titulo: 'E o que acabaram por fazer?',
+    opcoes: [
+      { v: 'casa', t: 'Ficámos em casa', p: { ultima: 1, gratis: 1 } },
+      { v: 'parque ou passeio', t: 'Parque ou passeio ao ar livre', p: { gratis: 2 } },
+      { v: 'atividade organizada', t: 'Uma atividade ou evento (teatro, biblioteca, atelier)', p: { explora: 2 } },
+      { v: 'shopping', t: 'Fomos ao shopping', p: { ultima: 1 } },
+      { v: 'família ou amigos', t: 'Casa da família ou de amigos', p: { ultima: 1 } }
+    ],
+    depois: {
+      titulo: 'Sabias que o castelo de Leiria é grátis para quem mora no concelho?',
+      texto: 'E não é só o castelo: o Museu de Leiria e o m|i|mo também. Para as crianças até aos 10 anos, os três são grátis mesmo para quem vem de fora.'
+    }
+  },
+  {
+    id: 'descobriu',
+    titulo: 'Da última vez que foram a um sítio novo com eles, como é que souberam dele?',
+    opcoes: [
+      { v: 'instagram', t: 'Pelo Instagram ou outras páginas', p: { explora: 1 } },
+      { v: 'amigos ou whatsapp', t: 'Por amigos ou num grupo de WhatsApp', p: { ultima: 1 } },
+      { v: 'escola ou creche', t: 'Pela escola ou creche', p: { malabar: 1 } },
+      { v: 'google', t: 'Fui eu à procura no Google', p: { explora: 2 } },
+      { v: 'não se lembra', t: 'Já nem me lembro da última vez', p: { ultima: 1 } }
+    ]
+  },
+  {
+    id: 'perdeu',
+    titulo: 'Nos últimos três meses, perderam alguma atividade porque souberam tarde ou já tinha esgotado?',
+    opcoes: [
+      { v: 'mais de uma', t: 'Sim, mais do que uma', p: { ultima: 2 } },
+      { v: 'uma', t: 'Sim, uma', p: { ultima: 1 } },
+      { v: 'não', t: 'Não, que eu saiba', p: { explora: 1 } }
+    ]
+  },
+  {
+    id: 'gasto',
+    titulo: 'Num fim de semana normal, quanto gastam em planos com os miúdos (sem contar com a comida)?',
+    opcoes: [
+      { v: '0', t: 'Nada, só fazemos coisas grátis', p: { gratis: 3 } },
+      { v: 'até 20', t: 'Até 20 €', p: { gratis: 1 } },
+      { v: '20-50', t: 'Entre 20 € e 50 €', p: { explora: 1 } },
+      { v: '50+', t: 'Mais de 50 €', p: { explora: 1, malabar: 1 } }
+    ],
+    depois: {
+      titulo: 'Sabias que dos 4 aos 23 anos os miúdos andam grátis nos transportes da região?',
+      texto: 'É o Passe Jovem da Região de Leiria. Pede-se com o Cartão de Cidadão e não é preciso ser estudante (quase ninguém sabe disto).'
+    }
+  },
+  {
+    id: 'pausa',
+    titulo: 'Na última pausa da escola ou da creche (no verão, por exemplo), com quem ficaram os miúdos enquanto trabalhavam?',
+    opcoes: [
+      { v: 'avós ou família', t: 'Com os avós ou outra família', p: { malabar: 1 } },
+      { v: 'campo de férias ou ATL', t: 'Num campo de férias ou ATL pago', p: { malabar: 3 } },
+      { v: 'tirámos férias', t: 'Tirámos férias para ficar com eles', p: { malabar: 1 } },
+      { v: 'um não trabalha fora', t: 'Um de nós não trabalha fora de casa', p: { explora: 1 } },
+      { v: 'ainda não', t: 'Ainda não tiveram pausas (são bebés)' }
+    ]
+  },
+  {
+    id: 'gasto_pausa', se: r => r.pausa === 'campo de férias ou ATL',
+    titulo: 'Mais ou menos, quanto gastaram nessa pausa, por filho?',
+    ajuda: 'Pergunto porque quero perceber o peso das pausas da escola nas contas das famílias de Leiria.',
+    opcoes: [
+      { v: 'até 100', t: 'Até 100 €' },
+      { v: '100-250', t: 'Entre 100 € e 250 €' },
+      { v: '250-500', t: 'Entre 250 € e 500 €' },
+      { v: '500+', t: 'Mais de 500 €' },
+      { v: 'não diz', t: 'Prefiro não dizer' }
+    ]
+  },
+  {
+    id: 'custa',
+    titulo: 'O que é que mais te custa quando chega a hora de planear o fim de semana?',
+    opcoes: [
+      { v: 'saber o que há', t: 'Saber o que há', p: { explora: 1, ultima: 1 } },
+      { v: 'saber a tempo', t: 'Saber a tempo, antes de esgotar', p: { ultima: 3 } },
+      { v: 'idade certa', t: 'Encontrar coisas para a idade deles', p: { explora: 2 } },
+      { v: 'preço', t: 'O preço', p: { gratis: 3 } },
+      { v: 'cansaço', t: 'O cansaço (chega sábado e não há energia)', p: { ultima: 2 } },
+      { v: 'trabalho', t: 'Conciliar com o trabalho e os horários', p: { malabar: 3 } }
+    ],
+    depois: {
+      titulo: 'Sabias que a agenda é verificada todas as manhãs?',
+      texto: 'Todas as manhãs vejo se as inscrições ainda estão abertas e o que já esgotou sai da lista (assim não perdes tempo com planos que já não dá para fazer).'
+    }
+  },
+  {
+    id: 'correu_bem',
+    titulo: 'E o último fim de semana que correu mesmo bem, o que é que teve de especial?',
+    opcoes: [
+      { v: 'sítio novo', t: 'Fomos a um sítio onde nunca tínhamos ido', p: { explora: 2 } },
+      { v: 'grátis', t: 'Foi bom e não gastámos quase nada', p: { gratis: 2 } },
+      { v: 'planeado', t: 'Estava tudo tratado com tempo', p: { malabar: 2 } },
+      { v: 'improviso', t: 'Foi de improviso e saiu bem', p: { ultima: 2 } },
+      { v: 'juntos', t: 'Estivemos juntos, sem pressas', p: { ultima: 1, gratis: 1 } }
+    ]
+  },
+  {
+    id: 'historia', aberta: true,
+    titulo: 'Conta-me o último fim de semana que não correu como querias. O que aconteceu?',
+    ajuda: 'É opcional, mas é a resposta que mais me ajuda (leio todas, uma a uma).'
+  }
+];
+
+/* ---------------------------------------------------------
+   RESULTADOS
+   --------------------------------------------------------- */
+const RESULTADOS = {
+  ultima: {
+    nome: 'A família de sábado de manhã',
+    texto: 'Vocês decidem no próprio dia, muitas vezes já com os miúdos de pijama a pedir para sair (e é normal, porque durante a semana não sobra cabeça para planear nada). O problema é que as coisas boas em Leiria costumam ter inscrição e, quando chega sábado, já esgotaram.',
+    dicas: [
+      'Abre a <a href="' + URL_AGENDA + '" target="_blank" rel="noopener">agenda</a> na sexta à noite, porque está lá tudo num só sítio, com a hora, o preço e a idade de cada plano.',
+      'Em cada plano vês o estado da inscrição e, quando diz «Por abrir», vale a pena pôr logo um lembrete no telemóvel.',
+      'Todas as quintas envio por email os planos do fim de semana, para decidires antes de sábado (e com tempo para te inscreveres).'
+    ]
+  },
+  gratis: {
+    nome: 'A família caça-grátis',
+    texto: 'Para vocês, um bom fim de semana não tem de custar dinheiro e têm toda a razão, porque em Leiria há muito mais coisas grátis do que parece (eu própria ainda fico surpreendida).',
+    dicas: [
+      'Na <a href="' + URL_AGENDA + '" target="_blank" rel="noopener">agenda</a> cada plano diz se é grátis ou pago, por isso vês logo o que vos serve.',
+      'O castelo de Leiria, o Museu de Leiria e o m|i|mo são grátis para quem mora no concelho e para todas as crianças até aos 10 anos, mesmo que venham de fora.',
+      'Para os dias de sol, o <a href="' + URL_GUIA_PARQUES + '" target="_blank" rel="noopener">guia dos parques infantis</a> junta 38 parques da região, com o que fui ver em cada um.'
+    ]
+  },
+  explora: {
+    nome: 'A família exploradora',
+    texto: 'Vocês gostam de experimentar sítios novos e já não se contentam com o parque do costume (e os miúdos agradecem, porque cada sítio novo é uma aventura). O que falta é tempo para descobrir o que há para lá do que já conhecem.',
+    dicas: [
+      'Na <a href="' + URL_AGENDA + '" target="_blank" rel="noopener">agenda</a> junto atividades de toda a região, das bibliotecas aos teatros, e há sempre alguma que ainda não experimentaram.',
+      'Escolhe pela idade que está em cada plano, porque um bom plano para 2 anos raramente é bom para 8.',
+      'O <a href="' + URL_GUIA_PARQUES + '" target="_blank" rel="noopener">guia dos parques infantis</a> tem 38 parques da região, e aposto que há pelo menos um onde nunca foram.'
+    ]
+  },
+  malabar: {
+    nome: 'A família malabarista',
+    texto: 'Vocês fazem malabarismo entre o trabalho, a escola e as pausas que nunca coincidem com as férias dos pais (e eu sei bem o que é, desde que voltei a trabalhar). O que vos salva é ter o plano feito com tempo e a vaga garantida.',
+    dicas: [
+      'Na <a href="' + URL_AGENDA + '" target="_blank" rel="noopener">agenda</a> vês quais as atividades com inscrição e quando abrem, para tratares disso antes de esgotar.',
+      'Todas as quintas envio por email os planos do fim de semana, para não teres de procurar nada depois de um dia de trabalho.',
+      'Estou a ouvir famílias de Leiria sobre as pausas da escola e, se aceitaste que te ligue, vou mesmo ligar (são 15 minutos e ajudas-me muito).'
+    ]
+  }
+};
+const DESEMPATE = ['malabar', 'ultima', 'gratis', 'explora'];
+
+/* ---------------------------------------------------------
+   ESTADO
+   --------------------------------------------------------- */
+const params = new URLSearchParams(location.search);
+const respostas = {};
+let historico = [];   // índices das perguntas visitadas, para voltar atrás
+let ecraAtual = 'inicio';
+const app = document.getElementById('app');
+const barra = document.getElementById('progresso');
+
+function perguntasVisiveis() { return PERGUNTAS.filter(q => !q.se || q.se(respostas)); }
+function totalPassos() { return perguntasVisiveis().length + 1; }
+
+function setProgresso(n) {
+  barra.style.width = Math.min(100, Math.round(n / totalPassos() * 100)) + '%';
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/* ---------------------------------------------------------
+   ECRÃS
+   --------------------------------------------------------- */
+function mostrarInicio() {
+  ecraAtual = 'inicio';
+  contarPasso('abriu');
+  setProgresso(0);
+  app.innerHTML = `
+    <section class="ecra ativo">
+      <div class="bloco-capa">
+        <span class="etiqueta">Quiz · 2 minutos</span>
+        <h1>Que família de fim de semana são vocês?</h1>
+        <p>São perguntas rápidas sobre os vossos últimos fins de semana e, no fim, digo-te que tipo de família são e o que vos dá mais jeito em Leiria.</p>
+      </div>
+      <p>Fiz este quiz porque quero conhecer melhor as famílias que me seguem (e as que ainda não me conhecem), para que a agenda vos sirva mesmo. Não há respostas certas.</p>
+      <button class="botao terracota" id="comecar">Começar</button>
+      <p class="letra-pequena">Feito pela Inês, mãe de dois aqui em Leiria 🏰💛</p>
+    </section>`;
+  document.getElementById('comecar').onclick = () => { contarPasso('comecou'); historico = []; irPara(0); };
+}
+
+function irPara(i) {
+  const visiveis = perguntasVisiveis();
+  if (i >= visiveis.length) return mostrarContacto();
+  const q = visiveis[i];
+  ecraAtual = i;
+  contarPasso(q.id);
+  setProgresso(i + 1);
+
+  let corpo;
+  if (q.aberta) {
+    corpo = `
+      <textarea id="texto" placeholder="Por exemplo: queríamos ir ao teatro mas já não havia bilhetes e acabámos no shopping...">${esc(respostas[q.id] || '')}</textarea>
+      <button class="botao" id="seguinte">Seguinte</button>`;
+  } else {
+    corpo = `<div class="opcoes" role="group" aria-label="${esc(q.titulo)}">` +
+      q.opcoes.map(o => {
+        const sel = q.multipla ? (respostas[q.id] || []).includes(o.v) : respostas[q.id] === o.v;
+        return `<button class="opcao" data-v="${esc(o.v)}" aria-pressed="${sel}">` +
+          (q.multipla ? '<span class="marca" aria-hidden="true"></span>' : '') +
+          `<span>${esc(o.t)}</span></button>`;
+      }).join('') + '</div>' +
+      (q.multipla ? `<button class="botao" id="seguinte" ${(respostas[q.id] || []).length ? '' : 'disabled'}>Seguinte</button>` : '');
+  }
+
+  app.innerHTML = `
+    <section class="ecra ativo">
+      <span class="etiqueta">Pergunta ${i + 1} de ${visiveis.length}</span>
+      <h2>${esc(q.titulo)}</h2>
+      ${q.ajuda ? `<p class="ajuda">${esc(q.ajuda)}</p>` : ''}
+      ${corpo}
+      <div class="navegacao">
+        <button class="ligacao" id="voltar">Voltar</button>
+        ${q.aberta ? '<button class="ligacao" id="saltar">Saltar esta</button>' : '<span></span>'}
+      </div>
+    </section>`;
+
+  const avancar = () => {
+    historico.push(i);
+    if (q.depois) mostrarCuriosidade(q, i); else irPara(i + 1);
+  };
+
+  document.getElementById('voltar').onclick = () => {
+    if (historico.length) irPara(historico.pop()); else mostrarInicio();
+  };
+
+  if (q.aberta) {
+    const t = document.getElementById('texto');
+    document.getElementById('seguinte').onclick = () => { respostas[q.id] = t.value.trim(); avancar(); };
+    document.getElementById('saltar').onclick = () => { respostas[q.id] = ''; avancar(); };
+    return;
+  }
+
+  app.querySelectorAll('.opcao').forEach(b => {
+    b.onclick = () => {
+      const v = b.dataset.v;
+      if (q.multipla) {
+        const lista = respostas[q.id] || [];
+        respostas[q.id] = lista.includes(v) ? lista.filter(x => x !== v) : lista.concat(v);
+        b.setAttribute('aria-pressed', respostas[q.id].includes(v));
+        document.getElementById('seguinte').disabled = !respostas[q.id].length;
+      } else {
+        respostas[q.id] = v;
+        // se a resposta deixa de abrir a pergunta condicional, limpar o que lá estava
+        PERGUNTAS.forEach(p => { if (p.se && !p.se(respostas)) delete respostas[p.id]; });
+        app.querySelectorAll('.opcao').forEach(x => x.setAttribute('aria-pressed', x === b));
+        setTimeout(avancar, 180);
+      }
+    };
+  });
+  if (q.multipla) document.getElementById('seguinte').onclick = avancar;
+}
+
+// «Sabias que…» entre perguntas: mantém as pessoas até ao fim
+// e testa as descobertas (só factos verificados na fonte).
+function mostrarCuriosidade(q, i) {
+  ecraAtual = 'curiosidade-' + q.id;
+  contarPasso('sabias-' + q.id);
+  app.innerHTML = `
+    <section class="ecra ativo">
+      <div class="resultado-capa">
+        <span class="etiqueta">Sabias que…</span>
+        <h2 style="color: var(--creme)">${esc(q.depois.titulo)}</h2>
+        <p>${esc(q.depois.texto)}</p>
+      </div>
+      <button class="botao terracota" id="continuar">Continuar</button>
+      <div class="navegacao"><button class="ligacao" id="voltar">Voltar</button><span></span></div>
+    </section>`;
+  document.getElementById('continuar').onclick = () => irPara(i + 1);
+  document.getElementById('voltar').onclick = () => irPara(historico.pop());
+  window.scrollTo({ top: 0 });
+}
+
+function mostrarContacto() {
+  ecraAtual = 'contacto';
+  contarPasso('contacto');
+  setProgresso(totalPassos() - 0.5);
+  app.innerHTML = `
+    <section class="ecra ativo">
+      <span class="etiqueta">Resultado pronto</span>
+      <h2>Já sei que família são vocês 🏰</h2>
+      <p class="ajuda">Deixa o teu email para veres o resultado e, se quiseres, todas as quintas recebes os planos do fim de semana em Leiria, escolhidos por mim.</p>
+      <form id="form" novalidate>
+        <label class="campo"><span>O teu nome <small>(opcional)</small></span>
+          <input type="text" id="nome" autocomplete="given-name"></label>
+        <label class="campo"><span>O teu email</span>
+          <input type="email" id="email" autocomplete="email" inputmode="email" required></label>
+        <label class="caixa"><input type="checkbox" id="newsletter">
+          <span>Quero receber o email de quinta com os planos do fim de semana (saio quando quiser, com um clique).</span></label>
+        <label class="caixa"><input type="checkbox" id="ligar">
+          <span>Aceito que a Inês me ligue 15 minutos para conhecer melhor os nossos fins de semana.</span></label>
+        <label class="campo" id="campo-tel" hidden><span>O teu telemóvel</span>
+          <input type="tel" id="telemovel" autocomplete="tel" inputmode="tel"></label>
+        <p class="erro" id="erro" role="alert"></p>
+        <button class="botao terracota" type="submit" id="ver">Ver o nosso resultado</button>
+      </form>
+      <div class="navegacao"><button class="ligacao" id="voltar">Voltar</button><span></span></div>
+      <p class="letra-pequena">Uso os teus dados só para o Miúdos em Leiria: o email de quinta, se o pediste, e uma chamada, se aceitaste. Não os partilho com ninguém e podes pedir para os apagar em geral@miudosemleiria.pt.</p>
+    </section>`;
+
+  const ligar = document.getElementById('ligar');
+  ligar.onchange = () => { document.getElementById('campo-tel').hidden = !ligar.checked; };
+  document.getElementById('voltar').onclick = () => irPara(historico.pop());
+
+  document.getElementById('form').onsubmit = e => {
+    e.preventDefault();
+    const erro = document.getElementById('erro');
+    const email = document.getElementById('email').value.trim();
+    const tel = document.getElementById('telemovel').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { erro.textContent = 'Falta o email (ou há um erro nele).'; return; }
+    if (ligar.checked && tel.replace(/\D/g, '').length < 9) { erro.textContent = 'Falta o telemóvel para te ligar.'; return; }
+    erro.textContent = '';
+
+    const tipo = calcularResultado();
+    enviar({
+      nome: document.getElementById('nome').value.trim(),
+      email: email,
+      newsletter: document.getElementById('newsletter').checked ? 'sim' : 'não',
+      ligar: ligar.checked ? 'sim' : 'não',
+      telemovel: ligar.checked ? tel : '',
+      resultado: RESULTADOS[tipo.vencedor].nome,
+      pontos: JSON.stringify(tipo.pontos),
+      origem: params.get('o') || '',
+      idades: (respostas.idades || []).join(', '),
+      concelho: respostas.concelho || '',
+      decidir: respostas.decidir || '',
+      fizeram: respostas.fizeram || '',
+      descobriu: respostas.descobriu || '',
+      perdeu: respostas.perdeu || '',
+      gasto: respostas.gasto || '',
+      pausa: respostas.pausa || '',
+      gasto_pausa: respostas.gasto_pausa || '',
+      custa: respostas.custa || '',
+      correu_bem: respostas.correu_bem || '',
+      historia: respostas.historia || ''
+    });
+    mostrarResultado(tipo.vencedor, document.getElementById('nome').value.trim());
+  };
+}
+
+function calcularResultado() {
+  const pontos = { ultima: 0, gratis: 0, explora: 0, malabar: 0 };
+  perguntasVisiveis().forEach(q => {
+    if (!q.opcoes || q.multipla) return;
+    const o = q.opcoes.find(x => x.v === respostas[q.id]);
+    if (o && o.p) Object.entries(o.p).forEach(([k, n]) => { pontos[k] += n; });
+  });
+  const max = Math.max(...Object.values(pontos));
+  const vencedor = DESEMPATE.find(k => pontos[k] === max);
+  return { vencedor, pontos };
+}
+
+// Conta quantas pessoas chegam a cada passo (cada passo conta uma vez por visita).
+// Vai para a folha «Passos»: nada de dados pessoais, só o nome do passo.
+const passosContados = new Set();
+function contarPasso(passo) {
+  if (passosContados.has(passo)) return;
+  passosContados.add(passo);
+  if (!URL_RESPOSTAS) { console.log('[quiz] passo:', passo); return; }
+  fetch(URL_RESPOSTAS, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ tipo: 'passo', passo: passo, origem: params.get('o') || '' })
+  }).catch(() => {});
+}
+
+function enviar(dados) {
+  if (!URL_RESPOSTAS) { console.log('[quiz] modo de teste, nada enviado:', dados); return; }
+  fetch(URL_RESPOSTAS, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(dados)
+  }).catch(err => console.warn('[quiz] falhou o envio', err));
+}
+
+function mostrarResultado(tipo, nome) {
+  ecraAtual = 'resultado';
+  contarPasso('resultado');
+  setProgresso(totalPassos());
+  const r = RESULTADOS[tipo];
+  const linkQuiz = location.origin + location.pathname;
+  const msg = encodeURIComponent('Fiz este quiz do Miúdos em Leiria e saiu-nos «' + r.nome + '». Que família são vocês? ' + linkQuiz);
+  app.innerHTML = `
+    <section class="ecra ativo">
+      <div class="resultado-capa">
+        <span class="etiqueta">${nome ? esc(nome) + ', vocês são' : 'Vocês são'}</span>
+        <h1>${r.nome}</h1>
+        <p>${r.texto}</p>
+      </div>
+      <h2>O que vos dá mais jeito</h2>
+      <ol class="dicas">${r.dicas.map(d => `<li>${d}</li>`).join('')}</ol>
+      <a class="botao terracota" href="${URL_AGENDA}" target="_blank" rel="noopener">Abrir a agenda de Leiria</a>
+      <p class="assinatura">Obrigada por responderes, porque é com respostas como a tua que decido o que fazer a seguir. 🏰💛</p>
+      <p class="partilha"><a href="https://wa.me/?text=${msg}" target="_blank" rel="noopener">Enviar o quiz a outra mãe ou pai por WhatsApp</a></p>
+    </section>`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+mostrarInicio();
+</script>
+</body>
+</html>
