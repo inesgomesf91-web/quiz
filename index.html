@@ -94,6 +94,7 @@
   }
   .botao:disabled { background: var(--pedra); opacity: .55; cursor: not-allowed; }
   .botao.terracota { background: var(--terracota); }
+  .botao.verde { background: var(--moss); }
   .botao:focus-visible { outline: 3px solid var(--mostarda); outline-offset: 2px; }
 
   .navegacao { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
@@ -170,7 +171,6 @@
    ========================================================= */
 const URL_RESPOSTAS = 'https://script.google.com/macros/s/AKfycbzQ3N8_0fvlgiSfu03VRKuOlIM-HL0ZKelaUJ72Zw9xworZVlRFUlu2173veLNzFwtH/exec';
 const URL_AGENDA = 'https://miudosemleiria.notion.site/Agenda-3f4273f1f54f81609662cfe095e104b3';
-const IG = '<a href="https://www.instagram.com/miudosemleiria/" target="_blank" rel="noopener">@miudosemleiria</a>';
 const URL_GUIA_PARQUES = 'https://docs.google.com/forms/d/e/1FAIpQLSfCUgjycntglpHbwXSVBpjeFNfnjSatlGqRjxnf2j6KXNBfLw/viewform';
 
 /* ---------------------------------------------------------
@@ -202,7 +202,7 @@ const PERGUNTAS = [
       { v: 'Porto de Mós', t: 'Porto de Mós' },
       { v: 'Alcobaça', t: 'Alcobaça' },
       { v: 'Ourém', t: 'Ourém' },
-      { v: 'Outro', t: 'Outro concelho' }
+      { v: 'Outro', t: 'Outro concelho', escrever: 'Qual?' }
     ]
   },
   {
@@ -210,6 +210,7 @@ const PERGUNTAS = [
     titulo: 'No último sábado com os miúdos, quando é que decidiram o que fazer?',
     opcoes: [
       { v: 'durante a semana', t: 'Durante a semana', p: { explora: 1, malabar: 1 } },
+      { v: 'quinta', t: 'Na quinta, quando saem os planos do fim de semana', p: { explora: 1, malabar: 1 } },
       { v: 'sexta à noite', t: 'Na sexta à noite', p: { ultima: 1 } },
       { v: 'sábado de manhã', t: 'No próprio sábado de manhã', p: { ultima: 2 } },
       { v: 'foi acontecendo', t: 'Não decidimos, foi acontecendo', p: { ultima: 2 } }
@@ -296,11 +297,7 @@ const PERGUNTAS = [
       { v: 'até 20', t: 'Até 20 €', p: { gratis: 1 } },
       { v: '20-50', t: 'Entre 20 € e 50 €', p: { explora: 1 } },
       { v: '50+', t: 'Mais de 50 €', p: { explora: 1, malabar: 1 } }
-    ],
-    depois: {
-      titulo: 'Sabias que dos 4 aos 23 anos os miúdos andam grátis nos transportes da região?',
-      texto: 'É o Passe Jovem da Região de Leiria. Pede-se com o Cartão de Cidadão e não é preciso ser estudante (quase ninguém sabe disto).'
-    }
+    ]
   },
   {
     id: 'pausa',
@@ -408,7 +405,7 @@ function mostrarInicio() {
         <h1>Que família de fim de semana são vocês?</h1>
         <p>Responde sobre os vossos últimos sábados e domingos e, no fim, digo-te que tipo de família são (não há respostas certas).</p>
       </div>
-      <button class="botao terracota" id="comecar">Começar, são 3 minutos</button>
+      <button class="botao verde" id="comecar">Começar, são 3 minutos</button>
       <p class="letra-pequena">Feito pela Inês, mãe de dois aqui em Leiria 🏰💛</p>
     </section>`;
   document.getElementById('comecar').onclick = () => { contarPasso('comecou'); historico = []; irPara(0); };
@@ -433,7 +430,11 @@ function irPara(i) {
         const sel = q.multipla ? (respostas[q.id] || []).includes(o.v) : respostas[q.id] === o.v;
         return `<button class="opcao" data-v="${esc(o.v)}" aria-pressed="${sel}">` +
           (q.multipla ? '<span class="marca" aria-hidden="true"></span>' : '') +
-          `<span>${esc(o.t)}</span></button>`;
+          `<span>${esc(o.t)}</span></button>` +
+          (o.escrever ? `<div id="outro" ${sel ? '' : 'hidden'}>
+            <label class="campo"><span>${esc(o.escrever)}</span>
+              <input type="text" id="outro-texto" value="${esc(respostas[q.id + '_outro'] || '')}"></label>
+            <button class="botao" id="outro-seguinte">Seguinte</button></div>` : '');
       }).join('') + '</div>' +
       (q.multipla ? `<button class="botao" id="seguinte" ${(respostas[q.id] || []).length ? '' : 'disabled'}>Seguinte</button>` : '');
   }
@@ -476,6 +477,15 @@ function irPara(i) {
         document.getElementById('seguinte').disabled = !respostas[q.id].length;
       } else {
         respostas[q.id] = v;
+        const o = q.opcoes.find(x => x.v === v);
+        const caixaOutro = document.getElementById('outro');
+        if (caixaOutro) caixaOutro.hidden = !o.escrever;
+        if (o.escrever) {
+          app.querySelectorAll('.opcao').forEach(x => x.setAttribute('aria-pressed', x === b));
+          document.getElementById('outro-texto').focus();
+          return;
+        }
+        delete respostas[q.id + '_outro'];
         // se a resposta deixa de abrir a pergunta condicional, limpar o que lá estava
         PERGUNTAS.forEach(p => { if (p.se && !p.se(respostas)) delete respostas[p.id]; });
         app.querySelectorAll('.opcao').forEach(x => x.setAttribute('aria-pressed', x === b));
@@ -484,6 +494,11 @@ function irPara(i) {
     };
   });
   if (q.multipla) document.getElementById('seguinte').onclick = avancar;
+  const outroSeguinte = document.getElementById('outro-seguinte');
+  if (outroSeguinte) outroSeguinte.onclick = () => {
+    respostas[q.id + '_outro'] = document.getElementById('outro-texto').value.trim();
+    avancar();
+  };
 }
 
 // «Sabias que…» entre perguntas: mantém as pessoas até ao fim
@@ -560,7 +575,7 @@ function mostrarContacto() {
       travou: respostas.travou || '',
       origem: params.get('o') || '',
       idades: (respostas.idades || []).join(', '),
-      concelho: respostas.concelho || '',
+      concelho: respostas.concelho === 'Outro' && respostas.concelho_outro ? 'Outro: ' + respostas.concelho_outro : (respostas.concelho || ''),
       decidir: respostas.decidir || '',
       fizeram: respostas.fizeram || '',
       descobriu: respostas.descobriu || '',
