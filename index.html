@@ -538,28 +538,20 @@ function mostrarContacto() {
           <input type="email" id="email" autocomplete="email" inputmode="email" required></label>
         <label class="caixa"><input type="checkbox" id="newsletter">
           <span>Quero saber o que a Inês descobriu com este quiz e o que decidiu fazer (um email, e saio quando quiser).</span></label>
-        <label class="caixa"><input type="checkbox" id="ligar">
-          <span>Aceito que a Inês me mande 2 ou 3 perguntas no Instagram (respondo quando puder, por escrito ou por áudio).</span></label>
-        <label class="campo" id="campo-tel" hidden><span>O teu Instagram</span>
-          <input type="text" id="telemovel" autocomplete="off" placeholder="@" autocapitalize="none"></label>
         <p class="erro" id="erro" role="alert"></p>
         <button class="botao terracota" type="submit" id="ver">Ver o nosso resultado</button>
       </form>
       <div class="navegacao"><button class="ligacao" id="voltar">Voltar</button><span></span></div>
-      <p class="letra-pequena">Uso os teus dados só para o Miúdos em Leiria: o email com o que descobri, se o pediste, e uma mensagem no Instagram, se aceitaste. Não os partilho com ninguém e podes pedir para os apagar em geral@miudosemleiria.pt.</p>
+      <p class="letra-pequena">Uso os teus dados só para o Miúdos em Leiria: o email com o que descobri, se o pediste. Não os partilho com ninguém e podes pedir para os apagar em geral@miudosemleiria.pt.</p>
     </section>`;
 
-  const ligar = document.getElementById('ligar');
-  ligar.onchange = () => { document.getElementById('campo-tel').hidden = !ligar.checked; };
   document.getElementById('voltar').onclick = () => irPara(historico.pop());
 
   document.getElementById('form').onsubmit = e => {
     e.preventDefault();
     const erro = document.getElementById('erro');
     const email = document.getElementById('email').value.trim();
-    const tel = document.getElementById('telemovel').value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { erro.textContent = 'Falta o email (ou há um erro nele).'; return; }
-    if (ligar.checked && tel.replace(/[@\s]/g, '').length < 2) { erro.textContent = 'Falta o teu Instagram para te mandar as perguntas.'; return; }
     erro.textContent = '';
 
     const tipo = calcularResultado();
@@ -567,8 +559,8 @@ function mostrarContacto() {
       nome: document.getElementById('nome').value.trim(),
       email: email,
       newsletter: document.getElementById('newsletter').checked ? 'sim' : 'não',
-      ligar: ligar.checked ? 'sim' : 'não',
-      telemovel: ligar.checked ? tel : '',
+      ligar: 'não',
+      telemovel: '',
       resultado: RESULTADOS[tipo.vencedor].nome,
       pontos: JSON.stringify(Object.assign({}, tipo.pontos, { segue: respostas.segue || '', foi: respostas.foi || '', travou: respostas.travou || '' })),
       segue: respostas.segue || '',
